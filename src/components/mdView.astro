@@ -1,7 +1,30 @@
 ---
+import { type CollectionEntry, getEntry } from "astro:content";
+import Toc from "../components/mdToc.astro";
+
+interface Props {
+  slug: string;
+}
+
+const { slug }: Props = Astro.props;
+const doc: CollectionEntry<"docs"> | undefined = await getEntry("docs", slug);
+const errorBody: string = "# 404\n\nDocument not found";
+
+if (!doc) {
+  console.error("Document not found");
+  return;
+}
+
+const { Content, headings } = await doc.render();
+
+// console.log("doc", doc);
+// console.log("Content", Content);
+// console.log("headings", headings);
 ---
 
-<div class="bg-emerald-400 prose prose-lg">
-  <h1>I will be a markdown document in the future</h1>
-  <p>For now, I am just a placeholder.</p>
+<div class="flex">
+  <article class="bg-emerald-400 prose prose-lg">
+    {doc ? <Content /> : { errorBody }}
+  </article>
+  <Toc headings={headings} />
 </div>

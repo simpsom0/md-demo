@@ -1,6 +1,25 @@
 ---
+import { CollectionEntry, getCollection } from "astro:content";
+
+const mdDocuments: CollectionEntry<"docs">[] = await getCollection("docs");
+
+// first click - href needs to include 'docs/'
+// second click - href needs to be just doc.slug
+const currentPath: string = Astro.url.pathname;
+const linkPath: string = currentPath.includes("docs") ? '' : 'docs/';
+
 ---
 
-<div class="flex-none min-w-fit w-1/5 bg-emerald-300">
-  <p>hello, I'm panelView</p>
+<div class="flex-none min-w-fit w-1/5 bg-emerald-300 p-1">
+  <div class="sticky top-9">
+    <ul class="list-inside list-disc">
+      {
+        mdDocuments.map((doc) => (
+          <li>
+            <a href=`${linkPath}${doc.slug}`>{doc.data.title}</a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
 </div>

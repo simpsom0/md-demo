@@ -1,0 +1,24 @@
+---
+import type { tocHeading } from "../consts";
+
+interface Props {
+  heading: tocHeading;
+}
+
+const { heading } = Astro.props;
+---
+
+<li>
+  <a href={"#" + heading.slug}>
+    {`${heading.depth} - ${heading.text}`}
+  </a>
+  {
+    heading.subheadings.length > 0 && (
+      <ul class="list-inside list-disc">
+        {heading.subheadings.map((subheading) => (
+          <Astro.self heading={subheading} />
+        ))}
+      </ul>
+    )
+  }
+</li>

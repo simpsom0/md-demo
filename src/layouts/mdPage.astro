@@ -1,9 +1,24 @@
 ---
 import MdView from "../components/mdView.astro";
 import Footer from "../components/footer.astro";
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  slug: string;
+}
+
+const { slug }: Props = Astro.props;
+// interface Props {
+//   // doc: CollectionEntry<"docs">;
+//   doc: object;
+// }
+//
+// const { doc }: Props = Astro.props;
+// console.log("in mdPage");
+// console.log(doc);
 ---
 
 <div class="bg-emerald-100 w-full flex flex-col items-center">
-  <MdView />
+  <MdView slug={slug} />
   <Footer />
 </div>

@@ -1,0 +1,25 @@
+---
+import { CollectionEntry, getCollection } from "astro:content";
+import Container from "../../layouts/container.astro";
+import MdPage from "../../layouts/mdPage.astro";
+
+// generates the path of each doc
+export async function getStaticPaths() {
+  const docEntries: CollectionEntry<"docs">[] = await getCollection("docs");
+  return docEntries.map((entry: CollectionEntry<"docs">) => ({
+    params: { slug: entry.slug },
+    props: { doc: entry },
+  }));
+}
+
+interface Props {
+  doc: CollectionEntry<"docs">;
+}
+
+const { doc }: Props = Astro.props;
+const docSlug: string = doc.slug;
+---
+
+<Container>
+  <MdPage slug={docSlug} slot="content" />
+</Container>

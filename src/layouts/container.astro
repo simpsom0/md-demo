@@ -1,9 +1,19 @@
 ---
-import PanelView from "panelView.astro";
-import MdPage from "mdPage.astro";
-import RecentlyAdded from "recentlyAdded.astro";
+import Header from "../components/header.astro";
+import MetaHead from "../components/metaHead.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+import PanelView from "./panelView.astro";
 ---
 
-<div>
-  <p>this is my container, hello!</p>
-</div>
+<html lang="en">
+  <head>
+    <MetaHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+  </head>
+  <body>
+    <Header />
+    <div class="flex flex-row flex-nowrap h-full w-screen">
+      <PanelView />
+      <slot name="content" />
+    </div>
+  </body>
+</html>

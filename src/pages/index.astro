@@ -1,29 +1,8 @@
 ---
-import MetaHead from "../components/metaHead.astro";
-import MdPage from "../layouts/mdPage.astro";
-import PanelView from "../layouts/panelView.astro";
+import Container from "../layouts/container.astro";
 import RecentlyAdded from "../layouts/recentlyAdded.astro";
-import Header from "../components/header.astro";
-import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
-
-// should I use a container layout that contains other layouts?
-// or should I just use a container that contains layouts?
 ---
 
-<html lang="en">
-  <head>
-    <MetaHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-  </head>
-  <body>
-    <Header />
-    <!-- this should be setup so that PanelView takes up 20% of the screen (less?) -->
-    <!-- needs to be done in a way that a collapse event can be triggered -->
-    <div class="flex flex-row flex-nowrap h-screen w-screen">
-      <PanelView />
-      <!-- how should I determine when to show RecentlyAdded vs MdPage? -->
-      <!-- should MdPage be the parent of RecentlyAdded? How should I handle -->
-      <!-- events such as searching and clicking to change pages? -->
-      <MdPage />
-    </div>
-  </body>
-</html>
+<Container>
+  <RecentlyAdded slot="content" />
+</Container>
